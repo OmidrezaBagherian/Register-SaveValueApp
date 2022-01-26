@@ -15,4 +15,5 @@
     <string name="toast_email">Email is empty</string>
     <string name="toast_password">Password is empty</string>
     <string name="toast_match_not_passwords">Re-type Password is not Password</string>
+    <string name="toast_saved_value">Data is saved</string>
 </resources>

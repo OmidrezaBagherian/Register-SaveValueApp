@@ -1,13 +1,22 @@
 package ir.omidrezabagherian.registerandsavevalueapp
 
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import ir.omidrezabagherian.registerandsavevalueapp.databinding.FragmentRegisterBinding
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
+
+    private var nameTemp = "FullName"
+    private var userTemp = "UserName"
+    private var emailTemp = "UserName"
+    private var passwordTemp = "UserName"
+    private var genderTemp = "UserName"
 
     private lateinit var bindingRegister: FragmentRegisterBinding
     private var gender = "Gender"
@@ -38,7 +47,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     }
 
     private fun saveValue() {
-
         if (bindingRegister.editTextSetFullName.text!!.isEmpty()) Toast.makeText(
             activity,
             R.string.toast_fullName,
@@ -60,19 +68,18 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         ).show()
         else emailTemp = bindingRegister.editTextSetEmail.text.toString()
 
-        when {
-            bindingRegister.editTextSetPassword.text!!.isEmpty() -> Toast.makeText(
+        if (bindingRegister.editTextSetPassword.text!!.isEmpty()) {
+            Toast.makeText(
                 activity,
                 R.string.toast_password,
                 Toast.LENGTH_SHORT
             ).show()
-            bindingRegister.editTextSetPassword.text == bindingRegister.editTextSetRetypePassword.text -> Toast.makeText(
-                activity,
-                R.string.toast_match_not_passwords,
-                Toast.LENGTH_SHORT
-            ).show()
-            else -> passwordTemp = bindingRegister.editTextSetPassword.text.toString()
-        }
+        } else if (bindingRegister.editTextSetPassword.text != bindingRegister.editTextSetRetypePassword.text) Toast.makeText(
+            activity,
+            R.string.toast_match_not_passwords,
+            Toast.LENGTH_SHORT
+        ).show()
+        else passwordTemp = bindingRegister.editTextSetPassword.text.toString()
 
         if (gender == "Gender") Toast.makeText(
             activity,
@@ -81,8 +88,26 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         ).show()
         else genderTemp = gender
 
+        val saveValue = SaveValueFragment()
+
+        val data = Bundle().apply {
+            putString(fullNameID, nameTemp)
+            putString(userNameID, userTemp)
+            putString(emailID, emailTemp)
+            putString(passwordID, passwordTemp)
+            putString(genderID, genderTemp)
+        }
+        val tag = "App"
+        Log.i(tag, nameTemp)
+        Log.i(tag, userTemp)
+        Log.i(tag, emailTemp)
+        Log.i(tag, passwordTemp)
+        Log.i(tag, genderTemp)
+        Log.i(tag, data.toString())
+        saveValue.arguments = data
+
         activity!!.supportFragmentManager.commit {
-            add(R.id.container_fragments, SaveValueFragment())
+            add(R.id.container_fragments, saveValue)
             setReorderingAllowed(true)
         }
 
