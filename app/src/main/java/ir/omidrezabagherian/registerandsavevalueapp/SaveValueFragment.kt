@@ -25,18 +25,11 @@ class SaveValueFragment : Fragment(R.layout.fragment_save_value) {
     }
 
     private fun showValue() {
-        val editorValue: SharedPreferences.Editor = valuesPreference.edit()
-
         bindingSaveValue.textViewShowFullName.text = arguments?.getString(fullNameID) ?: "FullName"
         bindingSaveValue.textViewShowUserName.text = arguments?.getString(userNameID) ?: "UserName"
         bindingSaveValue.textViewShowEmail.text = arguments?.getString(emailID) ?: "Email"
         bindingSaveValue.textViewShowPassword.text = arguments?.getString(passwordID) ?: "Password"
         bindingSaveValue.textViewShowGender.text = arguments?.getString(genderID) ?: "Gender"
-
-
-
-
-
     }
 
     private fun saveValue(){
@@ -44,10 +37,10 @@ class SaveValueFragment : Fragment(R.layout.fragment_save_value) {
 
         bindingSaveValue.buttonSaveValue.setOnClickListener {
             editorValue.putString(fullNameKey,bindingSaveValue.textViewShowFullName.text.toString())
-            editorValue.putString(userNameKey,bindingSaveValue.textViewShowFullName.text.toString())
-            editorValue.putString(emailKey,bindingSaveValue.textViewShowFullName.text.toString())
-            editorValue.putString(passwordKey,bindingSaveValue.textViewShowFullName.text.toString())
-            editorValue.putString(genderKey,bindingSaveValue.textViewShowFullName.text.toString())
+            editorValue.putString(userNameKey,bindingSaveValue.textViewShowUserName.text.toString())
+            editorValue.putString(emailKey,bindingSaveValue.textViewShowEmail.text.toString())
+            editorValue.putString(passwordKey,bindingSaveValue.textViewShowPassword.text.toString())
+            editorValue.putString(genderKey,bindingSaveValue.textViewShowGender.text.toString())
             editorValue.apply()
             editorValue.commit()
 
